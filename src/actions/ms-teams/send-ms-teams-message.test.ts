@@ -15,6 +15,8 @@ const defaultHandlerOptions = {
   createTemporaryDirectory() {
     throw new Error('Not implemented');
   },
+  checkpoint: jest.fn(),
+  getInitiatorCredentials: jest.fn(),
 };
 
 describe('ms-teams:sendMessage', () => {
@@ -183,4 +185,3 @@ describe('ms-teams:sendMessage', () => {
     }
   });
 });
-  

@@ -6,3 +6,5 @@
  */
 
 export * from './actions';
+export { scaffolderModuleSendTeamsMessage as default } from './module';
+

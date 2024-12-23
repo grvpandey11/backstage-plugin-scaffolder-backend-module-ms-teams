@@ -21,38 +21,11 @@ yarn add --cwd packages/backend @grvpandey11/backstage-plugin-scaffolder-backend
 Add the actions you'd like to the scaffolder:
 
 ```typescript
-// packages/backend/src/plugins/scaffolder.ts
-
-import {
-  createSendTeamsMessageViaWebhookAction
-} from '@grvpandey11/backstage-plugin-scaffolder-backend-module-ms-teams'
-
-import { ScmIntegrations } from '@backstage/integration';
-import { createBuiltinActions, createRouter } from '@backstage/plugin-scaffolder-backend';
+// packages/backend/src/index.ts
 
 ...
 
-const integrations = ScmIntegrations.fromConfig(env.config);
-const builtInActions = createBuiltinActions({
-  catalogClient,
-  integrations,
-  config: env.config,
-  reader: env.reader
-});
-
-const actions = [
-    createSendTeamsMessageViaWebhookAction({config: env.config}),
-  ...builtInActions
-];
-
-return await createRouter({
-  logger: env.logger,
-  config: env.config,
-  database: env.database,
-  reader: env.reader,
-  catalogClient,
-  actions
-});
+backend.add(import('@grvpandey11/backstage-plugin-scaffolder-backend-module-ms-teams'));
 ```
 
 Add a ms-teams configuration section to your app-config.yaml.

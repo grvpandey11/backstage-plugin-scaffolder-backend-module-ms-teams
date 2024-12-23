@@ -2,6 +2,7 @@ import { createTemplateAction } from '@backstage/plugin-scaffolder-node';
 import axios from 'axios';
 import { Config } from '@backstage/config';
 import { InputError } from '@backstage/errors';
+import { examples } from './send-ms-teams-message.examples';
 
 /**
  * Creates a `msteams:sendMessage` Scaffolder action.
@@ -19,6 +20,7 @@ export function createSendTeamsMessageViaWebhookAction(options: {
     }>({
       id: 'ms-teams:sendMessage',
       description: 'Sends a Microsoft Teams message via a webhook',
+      examples,
       schema: {
         input: {
           type: 'object',

@@ -8,7 +8,8 @@
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/grvpandey11/backstage-plugin-scaffolder-backend-module-ms-teams.git"
+    "url": "https://github.com/grvpandey11/backstage-plugin-scaffolder-backend-module-ms-teams.git",
+    "directory": "."
   },
   "publishConfig": {
     "access": "public",
@@ -16,7 +17,9 @@
     "types": "dist/index.d.ts"
   },
   "backstage": {
-    "role": "backend-plugin-module"
+    "role": "backend-plugin-module",
+    "pluginId": "scaffolder",
+    "pluginPackage": "@backstage/plugin-scaffolder-backend"
   },
   "scripts": {
     "start": "backstage-cli package start",

@@ -6,7 +6,7 @@ import { createSendTeamsMessageViaWebhookAction } from "./actions/ms-teams/send-
  * A backend module that registers the action into the scaffolder
  */
 export const scaffolderModuleSendTeamsMessage = createBackendModule({
-  moduleId: 'ms-teams:sendMessage',
+  moduleId: 'ms-teams',
   pluginId: 'scaffolder',
   register({ registerInit }) {
     registerInit({

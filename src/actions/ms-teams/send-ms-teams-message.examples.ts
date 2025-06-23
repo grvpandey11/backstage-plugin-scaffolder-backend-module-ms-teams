@@ -1,15 +1,15 @@
 import { TemplateExample } from '@backstage/plugin-scaffolder-node';
-import yaml from 'yaml';
+import * as yaml from 'yaml';
 
 export const examples: TemplateExample[] = [
   {
-    description: 'Send a simple message to Microsoft Teams',
+    description: 'Sends a simple message to Microsoft Teams using the configured webhook URL.',
     example: yaml.stringify({
       steps: [
         {
-          id: 'ms-teams:sendMessage',
-          action: 'ms-teams:sendMessage',
+          id: 'send-message',
           name: 'Send a message to Teams',
+          action: 'ms-teams:sendMessage',
           input: {
             message: 'Hello, Teams!',
           },
@@ -18,13 +18,13 @@ export const examples: TemplateExample[] = [
     }),
   },
   {
-    description: 'Send a message to Microsoft Teams with a specific webhook URL',
+    description: 'Sends a message to Microsoft Teams using a specific webhook URL provided in input.',
     example: yaml.stringify({
       steps: [
         {
-          id: 'ms-teams:sendMessage',
+          id: 'send-message',
+          name: 'Send a message to Teams with explicit webhook',
           action: 'ms-teams:sendMessage',
-          name: 'Send a message to Teams',
           input: {
             message: 'Hello, Teams!',
             webhookUrl: 'https://example-teams-webhook.com',

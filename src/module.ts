@@ -1,5 +1,5 @@
 import { createBackendModule, coreServices } from "@backstage/backend-plugin-api";
-import { scaffolderActionsExtensionPoint  } from '@backstage/plugin-scaffolder-node/alpha';
+import { scaffolderActionsExtensionPoint } from '@backstage/plugin-scaffolder-node';
 import { createSendTeamsMessageViaWebhookAction } from "./actions/ms-teams/send-ms-teams-message";
 
 /**

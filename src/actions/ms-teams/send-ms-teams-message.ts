@@ -30,27 +30,37 @@ export function createSendTeamsMessageViaWebhookAction(options: { config: Config
     },
     async handler(ctx) {
       const webhookUrl =
-        config.getOptionalString('ms-teams.webhookUrl') ?? ctx.input.webhookUrl;
+        ctx.input.webhookUrl ?? config.getOptionalString('ms-teams.webhookUrl');
 
       if (!webhookUrl) {
         throw new InputError(
-          'Webhook URL is not specified in either the app-config or the action input. This must be specified in at least one place in order to send a message',
+          'Webhook URL is not specified in either the action input or the app-config. This must be specified in at least one place in order to send a message',
         );
       }
 
-      const body = { text: ctx.input.message };
-      const result = await axios.post(webhookUrl, body);
+      const body = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org",
+        "summary": "Backstage",
+        "text": ctx.input.message,
+      };
 
-      if (result.status !== 200) {
-        ctx.logger.error(
-          `Something went wrong while trying to send a request to the Teams webhook URL - StatusCode ${result.status}`,
-        );
-        ctx.logger.debug(`Response body: ${result.data}`);
-        ctx.logger.debug(`Webhook URL: ${webhookUrl}`);
-        ctx.logger.debug(`Input message: ${ctx.input.message}`);
-        throw new Error(
-          `Something went wrong while trying to send a request to the Teams webhook URL - StatusCode ${result.status}`,
-        );
+      try {
+        await axios.post(webhookUrl, body);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          const statusCode = error.response?.status ?? 'unknown';
+          ctx.logger.error(
+            `Something went wrong while trying to send a request to the Teams webhook URL - StatusCode ${statusCode}`,
+          );
+          ctx.logger.debug(`Response body: ${error.response?.data}`);
+          ctx.logger.debug(`Webhook URL: ${webhookUrl}`);
+          ctx.logger.debug(`Input message: ${ctx.input.message}`);
+          throw new Error(
+            `Something went wrong while trying to send a request to the Teams webhook URL - StatusCode ${statusCode}`,
+          );
+        }
+        throw error;
       }
     },
   });
